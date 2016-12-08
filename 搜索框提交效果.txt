@@ -1,0 +1,24 @@
+$(document).ready(function(){
+
+         $(function(){
+             //搜索框文字效果
+             $("#inputSearch").focus(function(){
+                 //获得焦点
+                 $(this).addClass("focus");
+                 if($(this).val()==this.defaultValue){
+                     $(this).val(" ");
+                 }
+             }).blur(function(){
+                 //挪开焦点
+                 $(this).removeClass("focus");
+                 if($(this).val()==" "){
+                     $(this).val(this.defaultValue);
+                 }
+//                 按回车键
+             }).keyup(function(e){
+                 if(e.which==13){
+                     alert("回车提交表单！");
+                 }
+             })
+         })
+     })

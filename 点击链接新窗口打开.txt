@@ -1,0 +1,8 @@
+ $(document).ready(function(){
+          //href="http://"的超链接将会在新窗口打开
+          $('a[href^="https://"]').attr("target","_blank");
+          //rel="external"的超链接将在新窗口打开
+          $("a[rel$='external']").click(function(){
+              this.target = "_blank";
+          })
+      })

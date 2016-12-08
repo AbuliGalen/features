@@ -1,0 +1,10 @@
+$(document).ready(function () {
+        $("#panel h5").bind("click",function () {
+            var $content = $(this).next();
+            if($content.is(":visible")){
+                $content.hide();
+            }else{
+                $content.show();
+            }
+        })
+    })

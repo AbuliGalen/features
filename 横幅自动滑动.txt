@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>锋利的JQuery</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
+    <style>
+        #jnImageroll{
+            float: left;
+            width: 550px;
+            height: 320px;
+            margin: 0 11px 0 0;
+            overflow: hidden;
+            position: relative;
+        }
+        #jnImageroll img{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+        #jnImageroll div{
+            bottom: 0;
+            overflow: hidden;
+            position: absolute;
+            float: left;
+        }
+        #jnImageroll div a{
+            background-color: #444444;
+            color: #ffffff;
+            display: inline-block;
+            float: left;
+            height: 32px;
+            margin-right: 1px;
+            overflow: hidden;
+            padding: 5px 15px;
+            text-align: center;
+            width: 79px;
+        }
+        #jnImageroll div a:hover{
+            text-decoration: none;
+        }
+        #jnImageroll div a em{
+            cursor: pointer;
+            display: block;
+            height:16px;;
+            width: 79px;
+            overflow: hidden;
+        }
+        #jnImageroll .last{
+            margin:0;
+            width: 80px;
+        }
+        #jnImageroll a.chos{
+            background: url("image/xinyuanjieyi.png")no-repeat center 39px #37a7d7 ;
+        }
+    </style>
+</head>
+<body>
+   <div>
+       <!--大屏广告-->
+     <div id="jnImageroll">
+         <a href="#" id="JS_imgWrap">
+             <img src="image/chuxiao.png" alt="相约情人节">
+             <img src="image/nanzhong.png" alt="春季新品发布">
+             <img src="image/chuxiao.png" alt="相约情人节">
+             <img src="image/nanzhong.png" alt="春季新品发布">
+             <img src="image/chuxiao.png" alt="相约情人节">
+         </a>
+         <div>
+             <a href="#"><em>相约情人节</em><em>全场119元起</em></a>
+             <a href="#" class="last"><em>春季新品发布</em><em>全场</em></a>
+             <a href="#"><em>相约情人节</em><em>全场119元起</em></a>
+             <a href="#" class="last"><em>春季新品发布</em><em>全场</em></a>
+             <a href="#" class="last"><em>男装尽享5折</em><em>全场</em></a>
+         </div>
+     </div>
+
+      <!--最新动态-->
+       <div id="jnNotice">
+           <div id="jnMiaosha">
+               <a class="js_css3" href="#"><img src="image/xinyuanjieyi.png" alt="冬季清仓"></a>
+           </div>
+           <div id="jnNoticeInfo">
+               <h2 title="最新动态">最新动态</h2>
+               <ul>
+                   <li>
+                       <a href="#" class="tooltip" title="[活动]春鞋迎春大促">
+                           [活动]春鞋迎春大促
+                       </a>
+                   </li>
+                   <li>
+                       <a href="#" class="tooltip" title="[活动]春鞋迎春大促">
+                           [活动]全场女装7折
+                       </a>
+                   </li>
+               </ul>
+               <br class="clear">
+           </div>
+       </div>
+   </div>
+
+
+
+
+
+ //jQuery  代码函数
+
+   <script>
+       $(document).ready(function () {
+           $(function(){
+               var index = 0;
+               $("#jnImageroll div a").mouseover(function(){
+                   console.log("886");
+                   showImg(index);
+               }).eq(0).mouseover();
+           })
+           function showImg(index) {
+               var $rollobj = $("#jnImageroll");
+               var $rolllist = $rollobj.find("div a");
+               var newhref = $rolllist.eq(index).attr("href");
+               $("#JS_imgWrap").attr("href",newhref)
+                               .find("img").eq(index).stop(true,true).fadeIn()
+                               .siblings().fadeOut();
+               $rolllist.removeClass("chos").css("opacity","0.7")
+                        .eq(index).addClass("chos").css("opacity","1");
+           }
+           var adTimer = null;
+           $("#jnImageroll").hover(function(){
+               if(adTimer){
+                   clearInterval(adTimer);
+               }
+           }),function(){
+               adTimer = setInterval(function(){
+                   //...
+               },2000);
+           }
+           adTimer = setInterval(function(){
+               showImg(index)
+               index++;
+               if(index==len){insex = 0;}
+           },5000);
+           $(function(){
+               var $imgrolls = $("#jnImageroll div a");
+               $imgrolls.css("opacity","0.7");
+               var len = $imgrolls.length;
+               var index = 0;
+               var adTimer = null;
+               $imgrolls.mouseover(function(){
+                   index = $imgrolls.index(this);
+                   showImg(index);
+               }).eq(0).mouseover();
+//               滑入停止动画，滑出开始动画
+               $("#jnImageroll").hover(function(){
+                   if(adTimer){
+                       clearInterval(adTimer);
+                   }
+               },function(){
+                   adTimer = setInterval(function(){
+                       showImg(index);
+                       index++;
+                       if(index ==len){index=0;}
+                   },2000);
+               }).trigger("mouseleave");
+           })
+//           显示不同的灯幻片
+           function showImg(index){
+               var $rollobj = $("#jnImageroll");
+               var $rolllist = $rollobj.find("div a");
+               var newhref = $rollobj.eq(index).attr("href");
+               $("#JS_imgWrap").attr("href","newhref")
+                       .find("img").eq(index).stop(true,true).fadeIn()
+                       .siblings().fadeOut();
+               $rolllist.removeClass("chos").css("opacity","0.7")
+                       .eq(index).addClass("chos").css("opacity","1");
+
+           }
+       })
+   </script>
+</body>
+</html>
